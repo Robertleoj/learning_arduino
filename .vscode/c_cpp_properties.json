@@ -18,8 +18,7 @@
             "includePath": [
                 "/home/robert/.arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino",
                 "/home/robert/.arduino15/packages/arduino/hardware/avr/1.8.6/variants/standard",
-                "/home/robert/Arduino/libraries/LiquidCrystal_I2C",
-                "/home/robert/.arduino15/packages/arduino/hardware/avr/1.8.6/libraries/Wire/src",
+                "/home/robert/Arduino/libraries/Servo/src",
                 "/home/robert/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include",
                 "/home/robert/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include-fixed",
                 "/home/robert/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include"

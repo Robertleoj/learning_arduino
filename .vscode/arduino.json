@@ -1,6 +1,6 @@
 {
-    "port": "/dev/ttyACM2",
+    "port": "/dev/ttyACM3",
     "board": "arduino:avr:uno",
     "programmer": "avrisp",
-    "sketch": "lcd_rotary/lcd_rotary.ino"
+    "sketch": "servo_rotary/servo_rotary.ino"
 }
