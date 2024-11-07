@@ -1,9 +1,5 @@
 #include <LiquidCrystal_I2C.h>
 
-// #define SCREEN_WIDTH 128
-// #define SCREEN_HEIGHT 64
-// #define OLED_RESET -1  // Reset pin # (or -1 if sharing Arduino reset pin)
-
 const int DELAY_TIME = 700;
 
 LiquidCrystal_I2C lcd(
