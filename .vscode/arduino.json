@@ -2,5 +2,5 @@
     "port": "/dev/ttyACM3",
     "board": "arduino:avr:uno",
     "programmer": "avrisp",
-    "sketch": "servo_rotary/servo_rotary.ino"
+    "sketch": "ultrasonic_distance/ultrasonic_distance.ino"
 }
