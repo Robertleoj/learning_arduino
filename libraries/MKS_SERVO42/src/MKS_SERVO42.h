@@ -38,38 +38,36 @@ public:
 	 * @param version The version of the MKS_SERVO42 motor controller.
 	 */
 
-	void initialize(HardwareSerial *serialPort = nullptr, byte stepperId, FirmwareVersion const &version);
+	void initialize(HardwareSerial *serialPort, byte stepperId, FirmwareVersion const &version);
 	// void initialize(SoftwareSerial *serialPort = nullptr, long const &baudRate = 38400);
 
 
 	/// @brief Sends a ping command to the stepper motor to check its presence and connectivity.
 	/// @param stepperId The ID of the stepper motor to ping.
 	/// @return Returns true if the stepper motor is successfully pinged, false otherwise.
-	bool ping(byte const &stepperId);
+	bool ping();
 
 	/// @brief Retrieves the current position of the stepper motor in pulses.
-	/// @param stepperId The ID of the stepper motor whose position is to be retrieved.
 	/// @return Returns the current position of the stepper motor as a long integer value.
-	long getCurrentPosition(byte const &stepperId);
+	long getCurrentPosition();
 
 	/// @brief Sets the target position for the stepper motor by specifying the direction, speed, and number of pulses.
 	///        The speed parameter should not exceed 2000 RPM and the direction should be 0 for one way or 1 for the opposite.
-	/// @param stepperId The ID of the stepper motor to which the command will be sent.
 	/// @param direction The direction in which the motor should run (0 or 1).
 	/// @param speed The speed at which the motor should run, up to a maximum of 2000 RPM.
 	/// @param pulses The number of pulses to move, which translates to the target position.
 	/// @return Returns true if the command is successfully sent and the motor starts running, false if there is an error.
-	bool setTargetPosition(byte stepperId, byte direction, uint8_t speed, uint32_t pulses);
+	bool setTargetPosition(byte direction, uint8_t speed, uint32_t pulses);
 
 
 private:
 	HardwareSerial *port = nullptr;
-	version version;
+	FirmwareVersion version;
 	byte stepperId;
 
 	bool sendMessage(byte const &commandID);
-	int reciveStepperStatus();
-	long recieveEncoderPosition(byte const &stepperId);
+	int receiveStepperStatus();
+	long receiveEncoderPosition();
 	byte calculateChecksum(const byte *message, int length);
 	void flush();
 	byte padStepperId(byte const &stepperId);

@@ -7,14 +7,14 @@ byte const stepperId = 1;
 uint8_t const speed = 1000;
 uint16_t const pulses = 5000;
 
-MKS_SERVO42_1_0 stepper;
+MKS_SERVO42 stepper;
 HardwareSerial stepper_serial(1);
 
 void setup() {
     Serial.begin(115200);
     stepper_serial.begin(57600, SERIAL_8N1, RX1, TX1);
     Serial.println("Serial1 started, initializing");
-    stepper.initialize(&stepper_serial, stepperId, version::V1_0);
+    stepper.initialize(&stepper_serial, stepperId, FirmwareVersion::V1_0);
     Serial.println("Initialized");
     stepper.ping();
     Serial.println("Pinged");

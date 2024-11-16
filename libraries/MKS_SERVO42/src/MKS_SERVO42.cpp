@@ -1,23 +1,24 @@
 #include "MKS_SERVO42.h"
 
-void MKS_SERVO42::initialize(HardwareSerial *serialPort, byte stepperId, version const &version)
-    : version(version), port(serialPort) {
+void MKS_SERVO42::initialize(HardwareSerial *serialPort, byte stepperId, FirmwareVersion const &version) {
+    this->version = version;
+    this->port = serialPort;
     this->stepperId = padStepperId(stepperId);
 }
 
 void MKS_SERVO42::flush() { while (port->read() != -1); }
 
 bool MKS_SERVO42::ping() {
-    // Flush
     flush();
-    bool success = sendMessage(instruction::STEPPER_PING);
+
+    bool success = sendMessage(Instruction::STEPPER_PING);
 
     if (!success) {
         Serial.println("Failed to send");
         return false;
     }
 
-    return reciveStepperStatus();
+    return receiveStepperStatus();
 }
 
 byte MKS_SERVO42::padStepperId(byte const &stepperId) {
@@ -28,11 +29,11 @@ bool MKS_SERVO42::sendMessage(byte const &commandId) {
     int messageSize;
 
     switch (version) {
-        case version::V1_0:
+        case FirmwareVersion::V1_0:
             messageSize = 2;
             break;
 
-        case version::V1_1:
+        case FirmwareVersion::V1_1:
             messageSize = 3;
             break;
     }
@@ -43,7 +44,7 @@ bool MKS_SERVO42::sendMessage(byte const &commandId) {
     message[0] = stepperId;
     message[1] = commandId;
 
-    if (version == version::V1_1) {
+    if (version == FirmwareVersion::V1_1) {
         message[2] = checksum & 0xFF;
     }
 
@@ -51,13 +52,15 @@ bool MKS_SERVO42::sendMessage(byte const &commandId) {
     return numSent == messageSize;
 }
 
-int MKS_SERVO42::reciveStepperStatus() {
+int MKS_SERVO42::receiveStepperStatus() {
+    int messageSize;
+
     switch (version) {
-        case version::V1_0:
+        case FirmwareVersion::V1_0:
             messageSize = 2;
             break;
 
-        case version::V1_1:
+        case FirmwareVersion::V1_1:
             messageSize = 3 + sizeof(uint8_t);
             break;
     }
@@ -80,20 +83,20 @@ long MKS_SERVO42::getCurrentPosition() {
     // Flush
     flush();
 
-    bool success = sendMessage(instruction::GET_ENCODER_POS);
+    bool success = sendMessage(Instruction::GET_ENCODER_POS);
 
     if (!success) {
         Serial.println("Failed to send");
         return -1;
     }
 
-    return recieveEncoderPosition();
+    return receiveEncoderPosition();
 }
 
-long MKS_SERVO42::recieveEncoderPosition() {
-    if (version == version::V1_0) {
+long MKS_SERVO42::receiveEncoderPosition() {
+    if (version == FirmwareVersion::V1_0) {
         byte receivedBytes[8] = {0xe0, 0x00, 0x00, 0x00, 0x00, 0x40, 0x20};
-        size_t bytesRead = port_->readBytes(receivedBytes, 8);
+        size_t bytesRead = port->readBytes(receivedBytes, 8);
         if (bytesRead == 8 && receivedBytes[0] == stepperId) {
             int32_t carry = (int32_t)receivedBytes[1] << 24 |
                             (int32_t)receivedBytes[2] << 16 |
@@ -126,10 +129,10 @@ bool MKS_SERVO42::setTargetPosition(byte direction, uint8_t speed,
         return false;
     }
 
-    if (version == version::V1_1) {
+    if (version == FirmwareVersion::V1_1) {
         byte message[8];
         message[0] = stepperId;                       // Slave address
-        message[1] = instruction::MOVE_SPEED_PULSES;  // Function code for
+        message[1] = Instruction::MOVE_SPEED_PULSES;  // Function code for
                                                       // running the motor
         message[2] =
             (direction << 7) |
@@ -139,7 +142,7 @@ bool MKS_SERVO42::setTargetPosition(byte direction, uint8_t speed,
         message[5] = (pulses >> 8) & 0xFF;
         message[6] = pulses & 0xFF;
         message[7] = calculateChecksum(message, 7);
-        port_->write(message, sizeof(message));
+        port->write(message, sizeof(message));
 
         while (port->read() != -1);
         byte response[3];
@@ -163,22 +166,23 @@ bool MKS_SERVO42::setTargetPosition(byte direction, uint8_t speed,
             Serial.println("Invalid response from motor controller");
             return false;
         }
-    } else if (version == version::V1_0) {
-        if (speed > 2000 || direction > 1) byte message[5];
+    } else if (version == FirmwareVersion::V1_0) {
+
+        byte message[5];
         message[0] = stepperId;                       // Slave address
-        message[1] = instruction::MOVE_SPEED_PULSES;  // Function code for
+        message[1] = Instruction::MOVE_SPEED_PULSES;  // Function code for
                                                       // running the motor
         message[2] =
             (direction << 7) |
             (speed & 0x7F);  // VAL byte, with directionection and speed
         message[3] = (pulses >> 8) & 0xFF;
         message[4] = pulses & 0xFF;
-        port_->write(message, sizeof(message));
+        port->write(message, sizeof(message));
 
-        while (port_->read() != -1);
+        while (port->read() != -1);
 
         byte response[2];
-        size_t bytesRead = port_->readBytes(response, 2);
+        size_t bytesRead = port->readBytes(response, 2);
 
         Serial.println("Bytes read: " + String(bytesRead));
         Serial.print("Response: ");
@@ -202,7 +206,7 @@ bool MKS_SERVO42::setTargetPosition(byte direction, uint8_t speed,
 }
 
 byte MKS_SERVO42::calculateChecksum(const byte *message, int length) {
-    if (version == version::V1_0) {
+    if (version == FirmwareVersion::V1_0) {
         Serial.println("V1.0 does not use checksum");
         return 0;
     }
