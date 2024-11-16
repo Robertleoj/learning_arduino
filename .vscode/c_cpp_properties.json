@@ -23,7 +23,26 @@
                 "/home/robert/.arduino15/packages/esp32/tools/esp-x32/2302/lib/gcc/xtensa-esp32-elf/12.2.0/include",
                 "/home/robert/.arduino15/packages/esp32/tools/esp-x32/2302/lib/gcc/xtensa-esp32-elf/12.2.0/include-fixed",
                 "/home/robert/.arduino15/packages/esp32/tools/esp-x32/2302/xtensa-esp32-elf/sys-include",
-                "/home/robert/.arduino15/packages/esp32/tools/esp-x32/2302/xtensa-esp32-elf/include"
+                "/home/robert/.arduino15/packages/esp32/tools/esp-x32/2302/xtensa-esp32-elf/include",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32h2/include/freertos/FreeRTOS-Kernel/include",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32h2/include/freertos/FreeRTOS-Kernel/include/freertos",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32h2/include/freertos/esp_additions/include/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32h2/include/freertos/esp_additions/include/freertos",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/freertos/esp_additions/arch/xtensa/include/freertos/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/freertos/esp_additions/arch/xtensa/include/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/freertos/esp_additions/arch/xtensa/include/freertos/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/freertos/FreeRTOS-Kernel/portable/xtensa/include/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/xtensa/include",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/xtensa/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32/include/xtensa/esp32/include/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32s2/include/esp_hw_support/include/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32h2/include/soc/esp32h2/include/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32h2/include/esp_common/include/",
+                "/home/robert/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-33fbade6/esp32h2/include/esp_system/include/esp_private/",
+                "/home/robert/.arduino15/packages/esp32/**",
+                "${workspaceFolder}/libraries/MKS_SERVO42/src"
+
             ],
             "forcedInclude": [
                 "/home/robert/.arduino15/packages/esp32/hardware/esp32/3.0.5/cores/esp32/Arduino.h"

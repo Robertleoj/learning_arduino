@@ -1,7 +1,6 @@
 {
-    "port": "/dev/ttyUSB0",
-    "board": "esp32:esp32:esp32doit-devkit-v1",
-    "programmer": "avrisp",
     "sketch": "esp32_test/esp32_test.ino",
-    "configuration": "FlashFreq=80,UploadSpeed=921600,DebugLevel=none,EraseFlash=none"
+    "configuration": "FlashFreq=80,UploadSpeed=921600,DebugLevel=none,EraseFlash=none",
+    "board": "esp32:esp32:esp32doit-devkit-v1",
+    "port": "/dev/ttyUSB0"
 }
